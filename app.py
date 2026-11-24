@@ -58,9 +58,9 @@ def create_app(config_name: str | None = None):
         return render_template("errors/500.html"), 500
 
     # -------------------- Dev-only: ensure tables exist --------------------
-    # Creates any missing tables on SQLite in dev. No-op in prod.
-    # Must run BEFORE load_pending_jobs, otherwise the scheduler query will
-    # hit a "no such table" error on a fresh database.
+    # Creates missing tables on SQLite when DEBUG is on. No-op in prod.
+    # Runs BEFORE load_pending_jobs, otherwise the scheduler query would
+    # hit "no such table" on a fresh database.
     uri = app.config.get("SQLALCHEMY_DATABASE_URI", "")
     if app.config.get("DEBUG") and uri.startswith("sqlite"):
         with app.app_context():
@@ -71,6 +71,11 @@ def create_app(config_name: str | None = None):
                 app.logger.warning("Could not auto-create tables: %s", exc)
 
     # -------------------- Scheduler bootstrap --------------------
+    # IMPORTANT for production: when running gunicorn with multiple workers,
+    # every worker would start its own scheduler and fire the same jobs N
+    # times. Set SCHEDULER_ENABLED=false on the web workers and run
+    # `python scheduler_worker.py` as a dedicated single-instance process
+    # instead (see scheduler_worker.py in this project).
     if app.config.get("SCHEDULER_ENABLED") and not app.config.get("TESTING"):
         scheduler.configure(timezone=app.config["SCHEDULER_TIMEZONE"])
         if not scheduler.running:
@@ -107,6 +112,20 @@ def create_app(config_name: str | None = None):
     return app
 
 
+# ------------------------------------------------------------------
+# Module-level WSGI app.
+#
+#   Gunicorn:  gunicorn -w 4 -b 0.0.0.0:8000 app:app
+#   Flask CLI: flask --app app <command>
+#   Dev:       python app.py
+#
+# Gunicorn's default `app:app` syntax imports this module and looks for
+# the `app` attribute. Without this line it raises:
+#   AppImportError: Failed to find attribute 'app' in 'app'.
+# ------------------------------------------------------------------
+app = create_app()
+
+
 if __name__ == "__main__":
-    app = create_app()
+    # In dev, reuse the module-level app so create_app() is not called twice.
     app.run(debug=True, host="0.0.0.0", port=5000)
