@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}404 — MalipoHub{% endblock %}
+{% block content %}
+<div class="text-center py-20">
+  <p class="text-6xl font-bold text-brand-primary">404</p>
+  <p class="text-sm text-brand-muted mt-3">The page you requested was not found.</p>
+  <a href="{{ url_for('dashboard.index') }}" class="btn-primary mt-6 text-sm">Back to dashboard</a>
+</div>
+{% endblock %}

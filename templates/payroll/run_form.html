@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Generate payroll — MalipoHub{% endblock %}
+{% block content %}
+<div class="max-w-lg mx-auto">
+  <div class="card p-8">
+    <h1 class="text-xl font-bold text-brand-primary mb-1">Generate payroll</h1>
+    <p class="text-sm text-brand-muted mb-6">Creates payslips for all active employees with an active salary structure.</p>
+    <form method="post" novalidate class="space-y-4">
+      {{ form.hidden_tag() }}
+      <div>
+        <label class="label">{{ form.period.label.text }}</label>
+        {{ form.period(class="input", placeholder="2026-03") }}
+      </div>
+      <div>
+        <label class="label">{{ form.label.label.text }}</label>
+        {{ form.label(class="input", placeholder="March 2026 payroll") }}
+      </div>
+      <button type="submit" class="btn-primary w-full">{{ form.submit.label.text }}</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

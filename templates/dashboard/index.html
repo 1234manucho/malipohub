@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — MalipoHub{% endblock %}
+{% block content %}
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
+  <div>
+    <h1 class="text-2xl font-bold text-brand-primary">Dashboard</h1>
+    <p class="text-sm text-brand-muted">Overview of your operations for the last 30 days.</p>
+  </div>
+  <div class="flex gap-2">
+    <a href="{{ url_for('payments.single') }}" class="btn-primary text-sm">New payment</a>
+    <a href="{{ url_for('payments.bulk') }}" class="btn-secondary text-sm">Bulk upload</a>
+  </div>
+</div>
+
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+  <div class="kpi-card">
+    <span class="kpi-label">Settled (30d)</span>
+    <span class="kpi-value">{{ spend_30d | kes }}</span>
+    <span class="kpi-meta">Total disbursed value</span>
+  </div>
+  <div class="kpi-card">
+    <span class="kpi-label">Queued</span>
+    <span class="kpi-value">{{ pending }}</span>
+    <span class="kpi-meta">Awaiting execution</span>
+  </div>
+  <div class="kpi-card">
+    <span class="kpi-label">Active employees</span>
+    <span class="kpi-value">{{ employees }}</span>
+    <span class="kpi-meta">On payroll</span>
+  </div>
+  <div class="kpi-card">
+    <span class="kpi-label">Low stock</span>
+    <span class="kpi-value">{{ low_stock }}</span>
+    <span class="kpi-meta">Items at reorder level</span>
+  </div>
+</div>
+
+<div class="grid lg:grid-cols-3 gap-6">
+  <div class="lg:col-span-2 card p-5">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-base font-semibold text-brand-primary">Recent transactions</h2>
+      <a href="{{ url_for('payments.history') }}" class="text-xs font-semibold text-brand-accent hover:underline">View all</a>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="table-header">
+            <th class="text-left px-3 py-2">Reference</th>
+            <th class="text-left px-3 py-2">Recipient</th>
+            <th class="text-right px-3 py-2">Amount</th>
+            <th class="text-left px-3 py-2">Status</th>
+            <th class="text-left px-3 py-2">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for t in recent_txns %}
+          <tr class="border-t border-brand-border">
+            <td class="px-3 py-2 font-mono text-xs text-brand-muted">{{ t.reference }}</td>
+            <td class="px-3 py-2">{{ t.recipient_name or t.recipient }}</td>
+            <td class="px-3 py-2 text-right font-semibold">{{ t.amount | kes }}</td>
+            <td class="px-3 py-2">
+              <span class="badge-{{ t.status }}">{{ t.status | title }}</span>
+            </td>
+            <td class="px-3 py-2 text-xs text-brand-muted">{{ t.created_at | dt }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="5" class="px-3 py-6 text-center text-sm text-brand-muted">No transactions yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card p-5">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-base font-semibold text-brand-primary">Upcoming scheduled jobs</h2>
+      <a href="{{ url_for('scheduling.index') }}" class="text-xs font-semibold text-brand-accent hover:underline">Manage</a>
+    </div>
+    <div class="space-y-3">
+      {% for job in upcoming_jobs %}
+      <div class="border border-brand-border rounded-lg p-3">
+        <div class="flex justify-between items-start gap-2">
+          <div>
+            <p class="text-sm font-semibold text-brand-text">{{ job.label or job.job_type | replace('_', ' ') | title }}</p>
+            <p class="text-xs text-brand-muted mt-0.5">{{ job.job_type | replace('_', ' ') | title }} #{{ job.ref_id }}</p>
+          </div>
+          <span class="badge-queued">{{ job.status | title }}</span>
+        </div>
+        <p class="text-xs text-brand-muted mt-2">Runs {{ job.run_at | dt }}</p>
+      </div>
+      {% else %}
+      <p class="text-sm text-brand-muted">No scheduled jobs.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,432 @@
+{% extends "base.html" %}
+{% block title %}MalipoHub — Simplified disbursements, payroll and business payments{% endblock %}
+
+{# =====================================================================
+   LANDING PAGE
+   Narrative mirrors openfloat.africa's documented section flow:
+     1. Hero — "Facilitating simplified disbursements"
+     2. Empowering You — platform intro
+     3. Why Choose MalipoHub — three benefits
+     4. Key Features — enumerated feature list
+     5. Solutions — Payroll / Supplier Payments / Petty Cash / Bulk Airtime /
+                    Corporate Bills / Workforce
+     6. Customer Stories — two testimonials
+     7. Mobile / download block
+     8. Final CTA
+   Every section carries a comment header documenting its purpose.
+   ===================================================================== #}
+
+{% block hero %}
+<section class="fdw-hero">
+  <div class="max-w-[1216px] mx-auto px-6 py-16 sm:py-24">
+    <div class="grid lg:grid-cols-[1.05fr_0.95fr] gap-14 lg:gap-16 items-center">
+
+      <!-- Hero copy -->
+      <div class="fdw-reveal">
+        <p class="mono text-[10.5px] font-semibold uppercase tracking-[0.2em] text-brand-red mb-5">
+          Facilitating simplified disbursements
+        </p>
+
+        <h1 class="text-[38px] sm:text-[50px] lg:text-[58px] font-extrabold leading-[1.04] tracking-[-0.045em] text-white">
+          Easy and convenient<br>
+          <span class="text-brand-red">business payments.</span>
+        </h1>
+
+        <p class="mt-6 text-[15px] sm:text-[16.5px] leading-[1.75] text-white/60 max-w-[520px]">
+          MalipoHub digitises petty cash, payroll, supplier payments and corporate bills.
+          Disburse funds, pay bills and purchase airtime in bulk — all from one place.
+        </p>
+
+        <div class="mt-9 flex flex-col sm:flex-row gap-3">
+          <a href="{{ url_for('auth.register') }}" class="btn-primary">Get started free</a>
+          <a href="{{ url_for('auth.login') }}" class="btn-ghost-dark">Sign in</a>
+        </div>
+
+        <p class="mt-6 mono text-[11px] uppercase tracking-[0.14em] text-white/35">
+          Simulation mode enabled &nbsp;·&nbsp; No card required
+        </p>
+      </div>
+
+      <!-- Illustrative disbursement panel -->
+      <div class="fdw-reveal d2 relative" aria-hidden="true">
+        <div class="rounded-2xl border border-white/10 bg-white/[0.035] backdrop-blur-sm p-5 shadow-[0_40px_90px_-30px_rgba(0,0,0,.85)]">
+
+          <div class="flex items-start justify-between gap-3 mb-5">
+            <div>
+              <p class="mono text-[9.5px] uppercase tracking-[0.18em] text-white/35">Batch · 04 Mar</p>
+              <p class="mt-1 text-[15px] font-semibold text-white">March payroll</p>
+            </div>
+            <span class="rounded-full border border-amber-400/25 bg-amber-400/10 px-2.5 py-1 text-[9.5px] font-bold uppercase tracking-[0.12em] text-amber-300">
+              Awaiting approval
+            </span>
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex items-center justify-between rounded-lg border border-white/[0.07] bg-white/[0.02] px-3 py-2.5">
+              <div class="flex items-center gap-2.5">
+                <span class="grid h-6 w-6 place-items-center rounded-full bg-white/10 text-[9.5px] font-bold text-white/70">AW</span>
+                <div>
+                  <p class="text-[12px] font-medium text-white/90">Alice Wanjiru</p>
+                  <p class="mono text-[10px] text-white/35">2547···001</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <p class="mono text-[12px] text-white">12,400.00</p>
+                <p class="text-[10px] text-emerald-400">Settled</p>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between rounded-lg border border-white/[0.07] bg-white/[0.02] px-3 py-2.5">
+              <div class="flex items-center gap-2.5">
+                <span class="grid h-6 w-6 place-items-center rounded-full bg-white/10 text-[9.5px] font-bold text-white/70">JK</span>
+                <div>
+                  <p class="text-[12px] font-medium text-white/90">James Kariuki</p>
+                  <p class="mono text-[10px] text-white/35">2547···044</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <p class="mono text-[12px] text-white">18,750.00</p>
+                <p class="text-[10px] text-emerald-400">Settled</p>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between rounded-lg border border-white/[0.07] bg-white/[0.02] px-3 py-2.5">
+              <div class="flex items-center gap-2.5">
+                <span class="grid h-6 w-6 place-items-center rounded-full bg-white/10 text-[9.5px] font-bold text-white/70">NM</span>
+                <div>
+                  <p class="text-[12px] font-medium text-white/90">Njeri Mwangi</p>
+                  <p class="mono text-[10px] text-white/35">2547···117</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <p class="mono text-[12px] text-white">21,300.00</p>
+                <p class="text-[10px] text-amber-300">Queued</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5 flex items-end justify-between border-t border-white/10 pt-4">
+            <div>
+              <p class="mono text-[9.5px] uppercase tracking-[0.14em] text-white/35">Total</p>
+              <p class="mono mt-1 text-[17px] font-semibold text-white">KES 486,200.00</p>
+            </div>
+            <span class="inline-flex items-center gap-1.5 rounded-[9px] bg-brand-red px-3.5 py-2 text-[11.5px] font-bold text-white">
+              Approve batch
+            </span>
+          </div>
+        </div>
+
+        <div class="absolute -bottom-4 -left-4 hidden sm:flex items-center gap-2 rounded-lg border border-white/10 bg-brand-ink px-3 py-2 shadow-xl">
+          <span class="h-1.5 w-1.5 rounded-full bg-brand-red"></span>
+          <span class="mono text-[10px] uppercase tracking-[0.13em] text-white/60">Pre-flight · 24h</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block content %}
+
+<!-- =====================================================================
+     SECTION 1 — EMPOWERING YOU
+     Purpose: introduce the platform and its core promise
+     ===================================================================== -->
+<section class="pt-20 sm:pt-24">
+  <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-12 items-start">
+
+    <div class="fdw-reveal">
+      <p class="fdw-eyebrow">MalipoHub</p>
+      <h2 class="fdw-h2">Empowering you to optimise your experience effortlessly.</h2>
+    </div>
+
+    <div class="fdw-reveal d1">
+      <p class="fdw-intro">
+        Take charge of your financial transactions with the MalipoHub platform. Our
+        user-friendly tools empower businesses of all sizes with a comprehensive suite
+        of services — from petty cash management and payroll processing to corporate
+        bill payments and supplier disbursements.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href="{{ url_for('auth.register') }}" class="btn-primary">Create free account</a>
+        <a href="#solutions" class="btn-secondary">Explore solutions</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     SECTION 2 — WHY CHOOSE MALIPOHUB
+     Purpose: three differentiators (OpenFloat's "Why Choose" block)
+     ===================================================================== -->
+<section id="why" class="pt-20 sm:pt-24 scroll-mt-24">
+
+  <div class="fdw-reveal max-w-[760px]">
+    <p class="fdw-eyebrow">Benefits</p>
+    <h2 class="fdw-h2">Why choose MalipoHub.</h2>
+  </div>
+
+  <div class="mt-12 grid sm:grid-cols-3 gap-5">
+
+    {% for title, desc in [
+      ('Streamlined petty cash control', 'Effortlessly monitor and control petty cash expenses. Maintain a clear overview of every shilling with an intuitive digital platform.'),
+      ('Tailored for businesses of all sizes', 'Ideal for small businesses and large enterprises alike. Simple features adapt to your unique operational requirements.'),
+      ('Easy-to-use interface', 'No more complex processes. A user-friendly design puts you in control — simplify cash management in just a few clicks.')
+    ] %}
+    <div class="fdw-reveal d{{ loop.index }} card p-6">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="mono text-[11px] font-semibold text-brand-red tracking-[0.14em]">0{{ loop.index }}</span>
+        <span class="h-px flex-1 bg-brand-line"></span>
+      </div>
+      <h3 class="text-[15.5px] font-bold text-brand-ink tracking-[-0.025em]">{{ title }}</h3>
+      <p class="mt-2 text-[13.5px] leading-relaxed text-brand-muted">{{ desc }}</p>
+    </div>
+    {% endfor %}
+
+  </div>
+</section>
+
+<!-- =====================================================================
+     SECTION 3 — KEY FEATURES
+     Purpose: enumerated capability list (OpenFloat's "Key Features")
+     ===================================================================== -->
+<section id="features" class="pt-20 sm:pt-24 scroll-mt-24">
+
+  <div class="fdw-reveal max-w-[760px]">
+    <p class="fdw-eyebrow">Features</p>
+    <h2 class="fdw-h2">Key features on MalipoHub.</h2>
+    <p class="fdw-intro">
+      Everything required to run day-to-day business money movement — documented,
+      auditable and scoped to your company.
+    </p>
+  </div>
+
+  <div class="mt-12 grid sm:grid-cols-2 gap-x-10 gap-y-6">
+
+    {% for feature, detail in [
+      ('Expense tracking', 'Record and categorise expenses, and track expenditure in real time.'),
+      ('Receipt and invoice upload', 'Attach receipts for verification and ensure transparency in expense reporting.'),
+      ('Categorised and grouped payments', 'Create categories and groups for accounts, with seamless integration to mobile network providers for bulk purchases.'),
+      ('Multiple approvers', 'Set up multiple approvers per expense so every payment is authorised before it is processed.'),
+      ('Multi-account switching', 'Create multiple accounts and switch between them easily — ideal for branches or franchises.'),
+      ('Roles with granular permissions', 'Assign different roles to users with different system access levels.'),
+      ('Optimised approval process', 'Notifications are sent to the required approvers at each stage.'),
+      ('Streamlined reporting and data storage', 'Simplified reporting, secure storage and audit-ready exports.')
+    ] %}
+    <div class="fdw-reveal d{{ loop.index0 % 3 + 1 }} flex gap-4">
+      <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-brand-red shrink-0"></span>
+      <div>
+        <h3 class="text-[14.5px] font-bold text-brand-ink tracking-[-0.02em]">{{ feature }}</h3>
+        <p class="mt-1 text-[13.5px] leading-relaxed text-brand-muted">{{ detail }}</p>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+</section>
+
+<!-- =====================================================================
+     SECTION 4 — SOLUTIONS
+     Purpose: detailed solution cards (OpenFloat's Payroll / Supplier /
+     Petty Cash / Corporate Bills / Bulk Airtime blocks)
+     ===================================================================== -->
+<section id="solutions" class="pt-20 sm:pt-24 scroll-mt-24">
+
+  <div class="fdw-reveal max-w-[760px]">
+    <p class="fdw-eyebrow">Solutions</p>
+    <h2 class="fdw-h2">A comprehensive platform for every disbursement need.</h2>
+    <p class="fdw-intro">
+      MalipoHub digitises petty cash, payroll and corporate bill payments. Disburse
+      funds, pay bills and buy airtime in bulk — all in one place.
+    </p>
+  </div>
+
+  <div class="mt-12 grid lg:grid-cols-2 gap-5">
+
+    <!-- Payroll -->
+    <article class="fdw-reveal d1 card p-7">
+      <p class="mono text-[9.5px] uppercase tracking-[0.13em] text-brand-muted2 mb-3">Payroll</p>
+      <h3 class="text-[17px] font-bold text-brand-ink tracking-[-0.025em]">Simplify payroll management.</h3>
+      <p class="mt-2 text-[13.5px] leading-relaxed text-brand-muted">
+        Paying salaries is about safeguarding your team's financial well-being. MalipoHub
+        simplifies the entire process — accurate, timely salary disbursements with
+        statutory deductions handled cleanly.
+      </p>
+      <a href="{{ url_for('payroll.index') if current_user.is_authenticated else url_for('auth.register') }}" class="fdw-link mt-4">Learn more →</a>
+    </article>
+
+    <!-- Supplier payments -->
+    <article class="fdw-reveal d2 card p-7">
+      <p class="mono text-[9.5px] uppercase tracking-[0.13em] text-brand-muted2 mb-3">Supplier payments</p>
+      <h3 class="text-[17px] font-bold text-brand-ink tracking-[-0.025em]">Streamline supplier and vendor payments.</h3>
+      <p class="mt-2 text-[13.5px] leading-relaxed text-brand-muted">
+        Pay suppliers and vendors directly through MalipoHub — bank, paybill, till and
+        M-Pesa transactions. Routine payments, advance payments or instant settlements,
+        all in one secure flow.
+      </p>
+      <a href="{{ url_for('payments.bulk') if current_user.is_authenticated else url_for('auth.register') }}" class="fdw-link mt-4">Learn more →</a>
+    </article>
+
+    <!-- Petty cash -->
+    <article class="fdw-reveal d3 card p-7">
+      <p class="mono text-[9.5px] uppercase tracking-[0.13em] text-brand-muted2 mb-3">Petty cash</p>
+      <h3 class="text-[17px] font-bold text-brand-ink tracking-[-0.025em]">Empower your business with petty cash disbursement.</h3>
+      <p class="mt-2 text-[13.5px] leading-relaxed text-brand-muted">
+        Disburse funds to bank accounts, mobile numbers, paybill and till numbers with
+        just a few clicks. Pay suppliers, vendors and handle all corporate payouts
+        with ease.
+      </p>
+      <a href="{{ url_for('payments.single') if current_user.is_authenticated else url_for('auth.register') }}" class="fdw-link mt-4">Learn more →</a>
+    </article>
+
+    <!-- Corporate bills -->
+    <article class="fdw-reveal d1 card p-7">
+      <p class="mono text-[9.5px] uppercase tracking-[0.13em] text-brand-muted2 mb-3">Corporate bills</p>
+      <h3 class="text-[17px] font-bold text-brand-ink tracking-[-0.025em]">Enhance efficiency by simplifying bill payments.</h3>
+      <p class="mt-2 text-[13.5px] leading-relaxed text-brand-muted">
+        Settle utility and service bills through an intuitive flow. Managing bills
+        should not be a headache — MalipoHub makes it easy to pay multiple bills
+        without leaving the platform.
+      </p>
+      <a href="{{ url_for('auth.register') }}" class="fdw-link mt-4">Learn more →</a>
+    </article>
+
+    <!-- Bulk airtime -->
+    <article class="fdw-reveal d2 card p-7">
+      <p class="mono text-[9.5px] uppercase tracking-[0.13em] text-brand-muted2 mb-3">Bulk airtime</p>
+      <h3 class="text-[17px] font-bold text-brand-ink tracking-[-0.025em]">Streamline airtime expenses in bulk.</h3>
+      <p class="mt-2 text-[13.5px] leading-relaxed text-brand-muted">
+        Purchase airtime in bulk for multiple numbers across providers, with instant
+        top-ups for each recipient. Save time and earn chargebacks simultaneously.
+      </p>
+      <a href="{{ url_for('auth.register') }}" class="fdw-link mt-4">Learn more →</a>
+    </article>
+
+    <!-- Workforce -->
+    <article class="fdw-reveal d3 card p-7">
+      <p class="mono text-[9.5px] uppercase tracking-[0.13em] text-brand-muted2 mb-3">Workforce</p>
+      <h3 class="text-[17px] font-bold text-brand-ink tracking-[-0.025em]">Attendance and tasks that feed payroll.</h3>
+      <p class="mt-2 text-[13.5px] leading-relaxed text-brand-muted">
+        Track attendance and assign work items in a transparent, work-related way.
+        Attendance records flow straight into payroll for casuals and shift workers.
+      </p>
+      <a href="{{ url_for('workforce.attendance') if current_user.is_authenticated else url_for('auth.register') }}" class="fdw-link mt-4">Learn more →</a>
+    </article>
+
+  </div>
+</section>
+
+<!-- =====================================================================
+     SECTION 5 — CUSTOMER STORIES
+     Purpose: two testimonials (OpenFloat's "customer stories" block)
+     ===================================================================== -->
+<section id="stories" class="pt-20 sm:pt-24 scroll-mt-24">
+
+  <div class="fdw-reveal max-w-[760px]">
+    <p class="fdw-eyebrow">Customer stories</p>
+    <h2 class="fdw-h2">Here is what our clients say.</h2>
+  </div>
+
+  <div class="mt-12 grid sm:grid-cols-2 gap-5">
+
+    <blockquote class="fdw-reveal d1 card p-7">
+      <p class="text-[15px] leading-[1.8] text-brand-ink">
+        "I can make transactions using my phone at any time of the day. The efficiency
+        is what makes MalipoHub the best."
+      </p>
+      <footer class="mt-5 flex items-center gap-3">
+        <span class="grid h-9 w-9 place-items-center rounded-full bg-brand-redSoft text-[11px] font-bold text-brand-red">LA</span>
+        <div>
+          <p class="text-[13px] font-semibold text-brand-ink">Lusimu</p>
+          <p class="text-[11.5px] text-brand-muted">Accounts Payable, Natural World Kenya Safaris</p>
+        </div>
+      </footer>
+    </blockquote>
+
+    <blockquote class="fdw-reveal d2 card p-7">
+      <p class="text-[15px] leading-[1.8] text-brand-ink">
+        "MalipoHub can be tailored to meet your needs regardless of the industry or
+        sector, making it adaptable and suitable for any business."
+      </p>
+      <footer class="mt-5 flex items-center gap-3">
+        <span class="grid h-9 w-9 place-items-center rounded-full bg-brand-redSoft text-[11px] font-bold text-brand-red">JB</span>
+        <div>
+          <p class="text-[13px] font-semibold text-brand-ink">Joseph Baraka</p>
+          <p class="text-[11.5px] text-brand-muted">Accounts Manager, The Bar Next Door</p>
+        </div>
+      </footer>
+    </blockquote>
+
+  </div>
+</section>
+
+<!-- =====================================================================
+     SECTION 6 — MOBILE / DOWNLOAD
+     Purpose: app download block (OpenFloat's mobile section)
+     ===================================================================== -->
+<section class="pt-20 sm:pt-24">
+  <div class="fdw-reveal grid lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center rounded-[14px] border border-brand-line bg-brand-surface p-7 sm:p-10">
+
+    <div>
+      <p class="fdw-eyebrow">Mobile</p>
+      <h2 class="text-[26px] sm:text-[30px] font-extrabold leading-[1.15] tracking-[-0.04em] text-brand-ink">
+        Download the MalipoHub experience.
+      </h2>
+      <p class="mt-3 text-[14.5px] leading-[1.75] text-brand-muted max-w-[520px]">
+        Access the full range of MalipoHub financial solutions from your phone.
+        Simulation mode lets you test every flow before live disbursements.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href="{{ url_for('auth.register') }}" class="btn-primary">Create account</a>
+        <a href="{{ url_for('auth.login') }}" class="btn-secondary">Sign in</a>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-3 gap-3">
+      <div class="rounded-[9px] border border-brand-line bg-white px-4 py-3">
+        <p class="mono text-[9.5px] uppercase tracking-[0.13em] text-brand-muted2">Approval</p>
+        <p class="mt-1 text-[15px] font-extrabold text-brand-ink tracking-[-0.02em]">Real time</p>
+      </div>
+      <div class="rounded-[9px] border border-brand-line bg-white px-4 py-3">
+        <p class="mono text-[9.5px] uppercase tracking-[0.13em] text-brand-muted2">Pre-flight</p>
+        <p class="mt-1 text-[15px] font-extrabold text-brand-ink tracking-[-0.02em]">T−24h</p>
+      </div>
+      <div class="rounded-[9px] border border-brand-line bg-white px-4 py-3">
+        <p class="mono text-[9.5px] uppercase tracking-[0.13em] text-brand-muted2">Audit</p>
+        <p class="mt-1 text-[15px] font-extrabold text-brand-ink tracking-[-0.02em]">Every action</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     SECTION 7 — FINAL CTA
+     ===================================================================== -->
+<section class="pt-20 sm:pt-24">
+  <div class="fdw-reveal relative overflow-hidden rounded-[16px] bg-[#050B17] px-7 py-12 sm:px-12 sm:py-16 text-center"
+       style="background-image:
+         radial-gradient(ellipse 55% 70% at 50% -10%, rgba(237,49,56,.28), transparent 62%),
+         linear-gradient(to right,  rgba(255,255,255,.04) 1px, transparent 1px),
+         linear-gradient(to bottom, rgba(255,255,255,.04) 1px, transparent 1px);
+         background-size: auto, 56px 56px, 56px 56px;">
+
+    <p class="mono text-[10.5px] uppercase tracking-[0.2em] text-brand-red mb-4">Ready when you are</p>
+
+    <h2 class="mx-auto max-w-[620px] text-[28px] sm:text-[36px] font-extrabold leading-[1.15] tracking-[-0.04em] text-white">
+      Run payments, payroll and procurement from one hub.
+    </h2>
+
+    <p class="mx-auto mt-4 max-w-[480px] text-[14.5px] leading-[1.75] text-white/55">
+      Spin up a workspace in a minute. Simulation mode lets you test every flow before
+      a single shilling leaves your account.
+    </p>
+
+    <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+      <a href="{{ url_for('auth.register') }}" class="btn-primary">Create account</a>
+      <a href="{{ url_for('auth.login') }}" class="btn-ghost-dark">Sign in</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

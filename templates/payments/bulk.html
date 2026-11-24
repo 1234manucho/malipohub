@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Bulk payment — MalipoHub{% endblock %}
+{% block content %}
+<div class="max-w-2xl mx-auto">
+  <div class="card p-8">
+    <h1 class="text-xl font-bold text-brand-primary mb-1">Bulk disbursement</h1>
+    <p class="text-sm text-brand-muted mb-6">Upload a CSV with columns: <code class="text-xs bg-brand-surface px-1.5 py-0.5 rounded">name, phone_or_account, amount, method, reference</code></p>
+
+    <form method="post" enctype="multipart/form-data" novalidate class="space-y-4">
+      {{ form.hidden_tag() }}
+      <div>
+        <label class="label">{{ form.label.label.text }}</label>
+        {{ form.label(class="input", placeholder="March payroll") }}
+        {% if form.label.errors %}<p class="text-xs text-red-600 mt-1">{{ form.label.errors[0] }}</p>{% endif %}
+      </div>
+      <div>
+        <label class="label">CSV file</label>
+        <input type="file" name="csv_file" accept=".csv"
+               class="block w-full text-sm text-brand-muted file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-brand-accent file:text-white hover:file:bg-brand-primary">
+      </div>
+      <button type="submit" class="btn-primary w-full">{{ form.submit.label.text }}</button>
+    </form>
+
+    <div class="mt-6 border-t border-brand-border pt-4">
+      <p class="text-xs text-brand-muted">
+        Batches require approval. Small single payments are auto-queued; batches always enter the approval queue first.
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

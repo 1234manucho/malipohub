@@ -1,0 +1,1 @@
+module.exports={content:['./templates/**/*.html','./static/js/**/*.js'],theme:{extend:{colors:{brand:{primary:'#101217',accent:'#dc2626',teal:'#16734b',surface:'#f6f7f9',border:'#e5e7eb',text:'#17202c',muted:'#667085'}},fontFamily:{sans:['Inter','Arial','sans-serif']}}},plugins:[]};

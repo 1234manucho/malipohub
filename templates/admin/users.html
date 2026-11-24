@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Users — MalipoHub{% endblock %}
+{% block content %}
+<div class="flex justify-between items-center mb-5">
+  <div>
+    <h1 class="text-2xl font-bold text-brand-primary">Users & roles</h1>
+    <p class="text-sm text-brand-muted">Role changes take effect on next request.</p>
+  </div>
+  <a href="{{ url_for('admin.audit') }}" class="btn-secondary text-sm">Audit log</a>
+</div>
+
+<div class="card p-5">
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="table-header">
+          <th class="text-left px-3 py-2">Name</th>
+          <th class="text-left px-3 py-2">Email</th>
+          <th class="text-left px-3 py-2">Role</th>
+          <th class="text-left px-3 py-2">Active</th>
+          <th class="text-left px-3 py-2">Last login</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in users %}
+        <tr class="border-t border-brand-border">
+          <td class="px-3 py-2 font-medium">{{ u.full_name }}</td>
+          <td class="px-3 py-2 text-xs text-brand-muted">{{ u.email }}</td>
+          <td class="px-3 py-2">
+            <form method="post" action="{{ url_for('admin.change_role', uid=u.id, role=u.role) }}" class="flex items-center gap-2">
+              <select name="role" onchange="this.form.action='{{ url_for('admin.change_role', uid=u.id, role='__ROLE__') }}'.replace('__ROLE__', this.value); this.form.submit()"
+                      class="text-xs border border-brand-border rounded-md px-2 py-1 bg-white">
+                {% for r in ['admin','finance','approver','manager','viewer','employee'] %}
+                <option value="{{ r }}" {{ 'selected' if u.role == r }}>{{ r | title }}</option>
+                {% endfor %}
+              </select>
+            </form>
+          </td>
+          <td class="px-3 py-2"><span class="badge-{{ 'settled' if u.is_active_flag else 'pending' }}">{{ 'Yes' if u.is_active_flag else 'No' }}</span></td>
+          <td class="px-3 py-2 text-xs text-brand-muted">{{ u.last_login | dt if u.last_login else 'Never' }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

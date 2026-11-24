@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Add employee — MalipoHub{% endblock %}
+{% block content %}
+<div class="max-w-2xl mx-auto">
+  <div class="card p-8">
+    <h1 class="text-xl font-bold text-brand-primary mb-1">Add employee</h1>
+    <p class="text-sm text-brand-muted mb-6">Statutory fields are optional for contractors and casuals.</p>
+    <form method="post" novalidate class="space-y-4">
+      {{ form.hidden_tag() }}
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="label">{{ form.full_name.label.text }}</label>
+          {{ form.full_name(class="input") }}
+        </div>
+        <div>
+          <label class="label">{{ form.phone.label.text }}</label>
+          {{ form.phone(class="input", placeholder="2547XXXXXXXX") }}
+        </div>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="label">{{ form.email.label.text }}</label>
+          {{ form.email(class="input") }}
+        </div>
+        <div>
+          <label class="label">{{ form.kra_pin.label.text }}</label>
+          {{ form.kra_pin(class="input", placeholder="A123456789Z") }}
+        </div>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="label">{{ form.nssf_no.label.text }}</label>
+          {{ form.nssf_no(class="input") }}
+        </div>
+        <div>
+          <label class="label">{{ form.shif_no.label.text }}</label>
+          {{ form.shif_no(class="input") }}
+        </div>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="label">{{ form.bank_account.label.text }}</label>
+          {{ form.bank_account(class="input") }}
+        </div>
+        <div>
+          <label class="label">{{ form.bank_name.label.text }}</label>
+          {{ form.bank_name(class="input") }}
+        </div>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-4">
+        <div>
+          <label class="label">{{ form.department.label.text }}</label>
+          {{ form.department(class="input") }}
+        </div>
+        <div>
+          <label class="label">{{ form.position.label.text }}</label>
+          {{ form.position(class="input") }}
+        </div>
+        <div>
+          <label class="label">{{ form.employment_type.label.text }}</label>
+          {{ form.employment_type(class="input") }}
+        </div>
+      </div>
+      <button type="submit" class="btn-primary w-full">{{ form.submit.label.text }}</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

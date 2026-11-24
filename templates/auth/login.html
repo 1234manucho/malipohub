@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Sign in — MalipoHub{% endblock %}
+{% block content %}
+<div class="max-w-md mx-auto mt-10">
+  <div class="card p-8">
+    <h1 class="text-xl font-bold text-brand-primary mb-1">Welcome back</h1>
+    <p class="text-sm text-brand-muted mb-6">Sign in to your MalipoHub workspace.</p>
+    <form method="post" novalidate class="space-y-4">
+      {{ form.hidden_tag() }}
+      <div>
+        <label class="label">{{ form.email.label.text }}</label>
+        {{ form.email(class="input", placeholder="you@company.co.ke") }}
+        {% if form.email.errors %}<p class="text-xs text-red-600 mt-1">{{ form.email.errors[0] }}</p>{% endif %}
+      </div>
+      <div>
+        <label class="label">{{ form.password.label.text }}</label>
+        {{ form.password(class="input", placeholder="••••••••") }}
+        {% if form.password.errors %}<p class="text-xs text-red-600 mt-1">{{ form.password.errors[0] }}</p>{% endif %}
+      </div>
+      <button type="submit" class="btn-primary w-full">{{ form.submit.label.text }}</button>
+    </form>
+    <p class="text-xs text-brand-muted text-center mt-5">
+      No account? <a href="{{ url_for('auth.register') }}" class="text-brand-accent font-semibold hover:underline">Register</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

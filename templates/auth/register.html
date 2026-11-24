@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Create account — MalipoHub{% endblock %}
+{% block content %}
+<div class="max-w-lg mx-auto mt-6">
+  <div class="card p-8">
+    <h1 class="text-xl font-bold text-brand-primary mb-1">Create your workspace</h1>
+    <p class="text-sm text-brand-muted mb-6">Set up your company and admin account.</p>
+    <form method="post" novalidate class="space-y-4">
+      {{ form.hidden_tag() }}
+      <div>
+        <label class="label">{{ form.company_name.label.text }}</label>
+        {{ form.company_name(class="input", placeholder="Acme Traders Ltd") }}
+        {% if form.company_name.errors %}<p class="text-xs text-red-600 mt-1">{{ form.company_name.errors[0] }}</p>{% endif %}
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="label">{{ form.full_name.label.text }}</label>
+          {{ form.full_name(class="input", placeholder="Jane Wanjiku") }}
+          {% if form.full_name.errors %}<p class="text-xs text-red-600 mt-1">{{ form.full_name.errors[0] }}</p>{% endif %}
+        </div>
+        <div>
+          <label class="label">{{ form.phone.label.text }}</label>
+          {{ form.phone(class="input", placeholder="0712 345 678") }}
+          {% if form.phone.errors %}<p class="text-xs text-red-600 mt-1">{{ form.phone.errors[0] }}</p>{% endif %}
+        </div>
+      </div>
+      <div>
+        <label class="label">{{ form.email.label.text }}</label>
+        {{ form.email(class="input", placeholder="jane@company.co.ke") }}
+        {% if form.email.errors %}<p class="text-xs text-red-600 mt-1">{{ form.email.errors[0] }}</p>{% endif %}
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="label">{{ form.password.label.text }}</label>
+          {{ form.password(class="input", placeholder="Minimum 8 characters") }}
+          {% if form.password.errors %}<p class="text-xs text-red-600 mt-1">{{ form.password.errors[0] }}</p>{% endif %}
+        </div>
+        <div>
+          <label class="label">{{ form.confirm.label.text }}</label>
+          {{ form.confirm(class="input", placeholder="Repeat password") }}
+          {% if form.confirm.errors %}<p class="text-xs text-red-600 mt-1">{{ form.confirm.errors[0] }}</p>{% endif %}
+        </div>
+      </div>
+      <button type="submit" class="btn-primary w-full">{{ form.submit.label.text }}</button>
+    </form>
+    <p class="text-xs text-brand-muted text-center mt-5">
+      Already have an account? <a href="{{ url_for('auth.login') }}" class="text-brand-accent font-semibold hover:underline">Sign in</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

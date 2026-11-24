@@ -1,0 +1,36 @@
+/* MalipoHub — brand overrides and refinements */
+:root {
+  --brand-primary: #1E3A8A;
+  --brand-accent:  #2563EB;
+  --brand-teal:    #0F766E;
+  --brand-surface: #F8FAFC;
+  --brand-border:  #E2E8F0;
+  --brand-text:    #0F172A;
+  --brand-muted:   #64748B;
+}
+
+/* Smooth scrollbar */
+html { scroll-behavior: smooth; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--brand-surface); }
+::-webkit-scrollbar-thumb { background: var(--brand-border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--brand-muted); }
+
+/* Focus ring consistency */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--brand-accent);
+  outline-offset: 2px;
+}
+
+/* Table zebra for dense data */
+tbody tr:nth-child(even) { background-color: rgba(248, 250, 252, 0.5); }
+
+/* Print: hide nav and footer */
+@media print {
+  nav, footer, .btn-primary, .btn-secondary, .btn-danger { display: none !important; }
+  body { background: white; }
+}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Scheduled jobs — MalipoHub{% endblock %}
+{% block content %}
+<div class="flex justify-between items-center mb-5">
+  <div>
+    <h1 class="text-2xl font-bold text-brand-primary">Scheduled jobs</h1>
+    <p class="text-sm text-brand-muted">Automatic disbursements, payroll and reorder triggers. Pre-flight runs 24 hours before firing.</p>
+  </div>
+  <a href="{{ url_for('scheduling.new_job') }}" class="btn-primary text-sm">Schedule job</a>
+</div>
+
+<div class="card p-5">
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="table-header">
+          <th class="text-left px-3 py-2">Type</th>
+          <th class="text-left px-3 py-2">Reference</th>
+          <th class="text-left px-3 py-2">Label</th>
+          <th class="text-left px-3 py-2">Run at</th>
+          <th class="text-left px-3 py-2">Recurrence</th>
+          <th class="text-left px-3 py-2">Status</th>
+          <th class="text-right px-3 py-2">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for j in jobs %}
+        <tr class="border-t border-brand-border">
+          <td class="px-3 py-2 text-xs uppercase text-brand-muted">{{ j.job_type | replace('_', ' ') }}</td>
+          <td class="px-3 py-2 font-mono text-xs">#{{ j.ref_id }}</td>
+          <td class="px-3 py-2">{{ j.label or '—' }}</td>
+          <td class="px-3 py-2 text-xs">{{ j.run_at | dt }}</td>
+          <td class="px-3 py-2 text-xs capitalize">{{ j.recurrence }}</td>
+          <td class="px-3 py-2"><span class="badge-{{ 'settled' if j.status == 'done' else 'pending' if j.status == 'paused' else 'queued' }}">{{ j.status | title }}</span></td>
+          <td class="px-3 py-2 text-right">
+            {% if j.status == 'scheduled' %}
+            <form method="post" action="{{ url_for('scheduling.run_now', jid=j.id) }}" class="inline">
+              <button class="text-xs font-semibold text-brand-accent hover:underline">Run now</button>
+            </form>
+            {% else %}
+            <span class="text-xs text-brand-muted">—</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="7" class="px-3 py-6 text-center text-sm text-brand-muted">No scheduled jobs.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

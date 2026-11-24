@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Salary — {{ employee.full_name }}{% endblock %}
+{% block content %}
+<div class="max-w-lg mx-auto">
+  <div class="card p-8">
+    <h1 class="text-xl font-bold text-brand-primary mb-1">Salary structure</h1>
+    <p class="text-sm text-brand-muted mb-1">{{ employee.full_name }} &middot; {{ employee.position or '—' }}</p>
+    <p class="text-xs text-brand-muted mb-6">New entries deactivate prior active structures.</p>
+    <form method="post" novalidate class="space-y-4">
+      {{ form.hidden_tag() }}
+      <div>
+        <label class="label">{{ form.gross_salary.label.text }} (KES)</label>
+        {{ form.gross_salary(class="input", step="0.01") }}
+      </div>
+      <div>
+        <label class="label">{{ form.allowances.label.text }} (KES)</label>
+        {{ form.allowances(class="input", step="0.01") }}
+      </div>
+      <div>
+        <label class="label">{{ form.effective_from.label.text }}</label>
+        {{ form.effective_from(class="input", type="date") }}
+      </div>
+      <button type="submit" class="btn-primary w-full">{{ form.submit.label.text }}</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

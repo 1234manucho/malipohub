@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Audit log — MalipoHub{% endblock %}
+{% block content %}
+<div class="flex justify-between items-center mb-5">
+  <div>
+    <h1 class="text-2xl font-bold text-brand-primary">Audit log</h1>
+    <p class="text-sm text-brand-muted">Last 200 recorded actions.</p>
+  </div>
+  <a href="{{ url_for('admin.users') }}" class="btn-secondary text-sm">Back to users</a>
+</div>
+
+<div class="card p-5">
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="table-header">
+          <th class="text-left px-3 py-2">Time</th>
+          <th class="text-left px-3 py-2">Action</th>
+          <th class="text-left px-3 py-2">Entity</th>
+          <th class="text-left px-3 py-2">User</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for l in logs %}
+        <tr class="border-t border-brand-border">
+          <td class="px-3 py-2 text-xs text-brand-muted">{{ l.created_at | dt }}</td>
+          <td class="px-3 py-2 font-medium">{{ l.action }}</td>
+          <td class="px-3 py-2 text-xs">{{ l.entity or '—' }} {% if l.entity_id %}#{{ l.entity_id }}{% endif %}</td>
+          <td class="px-3 py-2 text-xs text-brand-muted">User #{{ l.user_id or 'system' }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4" class="px-3 py-6 text-center text-sm text-brand-muted">No audit entries.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

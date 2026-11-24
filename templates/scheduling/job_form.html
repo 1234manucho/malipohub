@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Schedule job — MalipoHub{% endblock %}
+{% block content %}
+<div class="max-w-lg mx-auto">
+  <div class="card p-8">
+    <h1 class="text-xl font-bold text-brand-primary mb-1">Schedule a job</h1>
+    <p class="text-sm text-brand-muted mb-6">Pre-flight notification is sent 24 hours before firing. If pre-flight fails, the job pauses.</p>
+    <form method="post" novalidate class="space-y-4">
+      {{ form.hidden_tag() }}
+      <div>
+        <label class="label">{{ form.job_type.label.text }}</label>
+        {{ form.job_type(class="input") }}
+      </div>
+      <div>
+        <label class="label">{{ form.ref_id.label.text }}</label>
+        {{ form.ref_id(class="input", placeholder="Transaction, batch, payroll or item ID") }}
+      </div>
+      <div>
+        <label class="label">{{ form.label.label.text }}</label>
+        {{ form.label(class="input", placeholder="March payroll auto-run") }}
+      </div>
+      <div>
+        <label class="label">{{ form.run_at.label.text }}</label>
+        {{ form.run_at(class="input", type="datetime-local") }}
+      </div>
+      <div>
+        <label class="label">{{ form.recurrence.label.text }}</label>
+        {{ form.recurrence(class="input") }}
+      </div>
+      <button type="submit" class="btn-primary w-full">{{ form.submit.label.text }}</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

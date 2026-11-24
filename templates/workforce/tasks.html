@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Tasks — MalipoHub{% endblock %}
+{% block content %}
+<div class="flex justify-between items-center mb-5">
+  <div>
+    <h1 class="text-2xl font-bold text-brand-primary">Tasks</h1>
+    <p class="text-sm text-brand-muted">Assigned work items and completion tracking.</p>
+  </div>
+  <a href="{{ url_for('workforce.attendance') }}" class="btn-secondary text-sm">Attendance</a>
+</div>
+
+<div class="grid lg:grid-cols-3 gap-6">
+  <div class="lg:col-span-1 card p-5">
+    <h2 class="text-base font-semibold text-brand-primary mb-4">Create task</h2>
+    <form method="post" novalidate class="space-y-3">
+      {{ form.hidden_tag() }}
+      <div>
+        <label class="label">{{ form.title.label.text }}</label>
+        {{ form.title(class="input") }}
+      </div>
+      <div>
+        <label class="label">{{ form.employee_id.label.text }}</label>
+        {{ form.employee_id(class="input") }}
+      </div>
+      <div>
+        <label class="label">{{ form.due_on.label.text }}</label>
+        {{ form.due_on(class="input", type="date") }}
+      </div>
+      <div>
+        <label class="label">{{ form.description.label.text }}</label>
+        {{ form.description(class="input", rows="3") }}
+      </div>
+      <button type="submit" class="btn-primary w-full">{{ form.submit.label.text }}</button>
+    </form>
+  </div>
+
+  <div class="lg:col-span-2 card p-5">
+    <h2 class="text-base font-semibold text-brand-primary mb-4">Task list</h2>
+    <div class="space-y-3">
+      {% for t in tasks %}
+      <div class="border border-brand-border rounded-lg p-3">
+        <div class="flex justify-between items-start gap-2">
+          <div>
+            <p class="text-sm font-semibold text-brand-text">{{ t.title }}</p>
+            <p class="text-xs text-brand-muted mt-0.5">Employee #{{ t.employee_id or 'unassigned' }}</p>
+          </div>
+          <span class="badge-{{ 'settled' if t.status == 'done' else 'pending' }}">{{ t.status | title }}</span>
+        </div>
+        {% if t.description %}<p class="text-xs text-brand-muted mt-2">{{ t.description }}</p>{% endif %}
+        {% if t.due_on %}<p class="text-xs text-brand-muted mt-1">Due {{ t.due_on }}</p>{% endif %}
+      </div>
+      {% else %}
+      <p class="text-sm text-brand-muted">No tasks.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

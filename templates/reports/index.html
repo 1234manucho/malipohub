@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Reports — MalipoHub{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-bold text-brand-primary mb-1">Reports</h1>
+<p class="text-sm text-brand-muted mb-6">Export operational data for reconciliation and review.</p>
+
+<div class="grid md:grid-cols-2 gap-5">
+  <div class="card p-6">
+    <h2 class="text-base font-semibold text-brand-primary">Cash flow (last 90 days)</h2>
+    <p class="text-sm text-brand-muted mt-1 mb-4">All transactions with date, reference, recipient, method, amount, fee and status.</p>
+    <a href="{{ url_for('reports.cashflow_csv') }}" class="btn-primary text-sm">Download CSV</a>
+  </div>
+  <div class="card p-6">
+    <h2 class="text-base font-semibold text-brand-primary">Payroll summary</h2>
+    <p class="text-sm text-brand-muted mt-1 mb-4">Payslip totals per period are visible on the payroll runs page.</p>
+    <a href="{{ url_for('payroll.runs') }}" class="btn-secondary text-sm">View payroll runs</a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+from flask_migrate import Migrate
+from flask_wtf import CSRFProtect
+from apscheduler.schedulers.background import BackgroundScheduler
+
+db = SQLAlchemy()
+login_manager = LoginManager()
+migrate = Migrate()
+csrf = CSRFProtect()
+
+# Scheduler is instantiated lazily in app.py
+scheduler = BackgroundScheduler()
+
+login_manager.login_view = "auth.login"
+login_manager.login_message = "Please log in to continue."
+login_manager.login_message_category = "warning"
+login_manager.session_protection = "strong"
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    from models import User
+
+    return User.query.get(int(user_id))

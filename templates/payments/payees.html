@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Payees — MalipoHub{% endblock %}
+{% block content %}
+<div class="flex justify-between items-center mb-5">
+  <div>
+    <h1 class="text-2xl font-bold text-brand-primary">Payees</h1>
+    <p class="text-sm text-brand-muted">Saved recipients for single and bulk payments.</p>
+  </div>
+  <a href="{{ url_for('payments.single') }}" class="btn-primary text-sm">Make payment</a>
+</div>
+
+<div class="grid lg:grid-cols-3 gap-6">
+  <div class="lg:col-span-1 card p-5">
+    <h2 class="text-base font-semibold text-brand-primary mb-4">Add payee</h2>
+    <form method="post" novalidate class="space-y-3">
+      {{ form.hidden_tag() }}
+      <div>
+        <label class="label">{{ form.name.label.text }}</label>
+        {{ form.name(class="input", placeholder="Supplier or employee name") }}
+      </div>
+      <div>
+        <label class="label">{{ form.method.label.text }}</label>
+        {{ form.method(class="input") }}
+      </div>
+      <div>
+        <label class="label">{{ form.phone.label.text }}</label>
+        {{ form.phone(class="input", placeholder="2547XXXXXXXX") }}
+      </div>
+      <div>
+        <label class="label">{{ form.account_number.label.text }}</label>
+        {{ form.account_number(class="input", placeholder="Bank account or till") }}
+      </div>
+      <div>
+        <label class="label">{{ form.bank_name.label.text }}</label>
+        {{ form.bank_name(class="input", placeholder="Bank name") }}
+      </div>
+      <div>
+        <label class="label">{{ form.tag.label.text }}</label>
+        {{ form.tag(class="input", placeholder="supplier, staff, casual") }}
+      </div>
+      <button type="submit" class="btn-primary w-full">{{ form.submit.label.text }}</button>
+    </form>
+  </div>
+
+  <div class="lg:col-span-2 card p-5">
+    <h2 class="text-base font-semibold text-brand-primary mb-4">Saved payees ({{ payees | length }})</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="table-header">
+            <th class="text-left px-3 py-2">Name</th>
+            <th class="text-left px-3 py-2">Method</th>
+            <th class="text-left px-3 py-2">Destination</th>
+            <th class="text-left px-3 py-2">Tag</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in payees %}
+          <tr class="border-t border-brand-border">
+            <td class="px-3 py-2 font-medium">{{ p.name }}</td>
+            <td class="px-3 py-2 text-xs uppercase text-brand-muted">{{ p.method }}</td>
+            <td class="px-3 py-2 text-xs">{{ p.phone or p.account_number or '—' }}</td>
+            <td class="px-3 py-2 text-xs text-brand-muted">{{ p.tag or '—' }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="4" class="px-3 py-6 text-center text-sm text-brand-muted">No payees yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

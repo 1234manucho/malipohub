@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Add item — MalipoHub{% endblock %}
+{% block content %}
+<div class="max-w-xl mx-auto">
+  <div class="card p-8">
+    <h1 class="text-xl font-bold text-brand-primary mb-1">Add stock item</h1>
+    <p class="text-sm text-brand-muted mb-6">Opening stock is recorded as a purchase movement.</p>
+    <form method="post" novalidate class="space-y-4">
+      {{ form.hidden_tag() }}
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="label">{{ form.name.label.text }}</label>
+          {{ form.name(class="input") }}
+        </div>
+        <div>
+          <label class="label">{{ form.sku.label.text }}</label>
+          {{ form.sku(class="input") }}
+        </div>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="label">{{ form.cost_price.label.text }}</label>
+          {{ form.cost_price(class="input", step="0.01") }}
+        </div>
+        <div>
+          <label class="label">{{ form.selling_price.label.text }}</label>
+          {{ form.selling_price(class="input", step="0.01") }}
+        </div>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-4">
+        <div>
+          <label class="label">{{ form.stock_qty.label.text }}</label>
+          {{ form.stock_qty(class="input", step="0.01") }}
+        </div>
+        <div>
+          <label class="label">{{ form.reorder_level.label.text }}</label>
+          {{ form.reorder_level(class="input", step="0.01") }}
+        </div>
+        <div>
+          <label class="label">{{ form.unit.label.text }}</label>
+          {{ form.unit(class="input", placeholder="pcs") }}
+        </div>
+      </div>
+      <button type="submit" class="btn-primary w-full">{{ form.submit.label.text }}</button>
+    </form>
+  </div>
+</div>
+{% endblock %} 

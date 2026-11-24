@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Single payment — MalipoHub{% endblock %}
+{% block content %}
+<div class="max-w-xl mx-auto">
+  <div class="card p-8">
+    <h1 class="text-xl font-bold text-brand-primary mb-1">Send a payment</h1>
+    <p class="text-sm text-brand-muted mb-6">Amounts above KES 50,000 require approval before settlement.</p>
+    <form method="post" novalidate class="space-y-4">
+      {{ form.hidden_tag() }}
+      <div>
+        <label class="label">{{ form.payee_id.label.text }}</label>
+        {{ form.payee_id(class="input") }}
+        {% if form.payee_id.errors %}<p class="text-xs text-red-600 mt-1">{{ form.payee_id.errors[0] }}</p>{% endif %}
+      </div>
+      <div>
+        <label class="label">{{ form.amount.label.text }} (KES)</label>
+        {{ form.amount(class="input", placeholder="0.00", step="0.01") }}
+        {% if form.amount.errors %}<p class="text-xs text-red-600 mt-1">{{ form.amount.errors[0] }}</p>{% endif %}
+      </div>
+      <div>
+        <label class="label">{{ form.method.label.text }}</label>
+        {{ form.method(class="input") }}
+      </div>
+      <div>
+        <label class="label">{{ form.description.label.text }}</label>
+        {{ form.description(class="input", placeholder="Invoice 1234 / March salary") }}
+      </div>
+      <button type="submit" class="btn-primary w-full">{{ form.submit.label.text }}</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
