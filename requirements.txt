@@ -18,6 +18,12 @@ email-validator==2.1.1
 # ---- Database ----
 SQLAlchemy==2.1.9
 alembic==1.20.1
+
+# Postgres drivers — ship BOTH so any URL scheme works:
+#   postgresql://...               → psycopg 3   (SQLAlchemy default)
+#   postgresql+psycopg://...       → psycopg 3
+#   postgresql+psycopg2://...      → psycopg 2
+psycopg[binary]==3.2.3
 psycopg2-binary==2.9.9
 
 # ---- Config / env ----
@@ -43,5 +49,5 @@ chardet==7.7.0
 # ---- Email DNS checks ----
 dnspython==2.9.2
 
-# ---- Production WSGI server (THIS WAS MISSING) ----
+# ---- Production WSGI server ----
 gunicorn==22.0.0
